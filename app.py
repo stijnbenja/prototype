@@ -28,7 +28,7 @@ def generate_financial_advice(user_input):
         "Reducing your subscription services could free up an extra €100 per month."
     ]
     # Return a random response to simulate dynamic responses
-    return random.choice(responses)
+    return responses[int(len(st.session_state.chat_history) / 2)]
 
 # Store the chat history
 if 'chat_history' not in st.session_state:
@@ -60,6 +60,7 @@ if user_input:
         
     # Append the bot's message to the chat history
     st.session_state.chat_history.append({"role": "bot", "message": response_text})
+    st.rerun()
 
 # Display chat history in the correct order (oldest to newest)
 for chat in st.session_state.chat_history:
@@ -70,6 +71,10 @@ for chat in st.session_state.chat_history:
         bot_avatar = "d"  # Custom bot emoji/avatar
         with st.chat_message(bot_avatar):
             st.write(chat["message"])
+
+
+
+
 
 # Sidebar showing user financial summary
 st.sidebar.title("User Financial Summary")
